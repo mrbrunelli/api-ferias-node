@@ -51,9 +51,12 @@ module.exports = {
         // Pegar conteúdo do body da requisição
         const {
             idcolaborador,
-            data_inicio,
-            data_fim
+            data,
         } = req.body
+
+        const data_inicio = data[0]
+        const data_fim = data[1]
+
         try {
             await db.query("INSERT INTO ferias (idcolaborador, data_inicio, data_fim) VALUES ($1, $2, $3)",
                 [idcolaborador, data_inicio, data_fim]

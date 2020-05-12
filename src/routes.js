@@ -15,6 +15,7 @@ const FeriasController = require('./controllers/FeriasController')
 // Rota Colaborador
 routes.get('/colaborador', ColaboradorController.listAll)
 routes.get('/colaborador/:id', ColaboradorController.listById)
+routes.get('/colaborador/filial/:id', ColaboradorController.listByFilialId)
 
 // Rota Filial
 routes.get('/filial', FilialController.listAll)
