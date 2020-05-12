@@ -54,6 +54,7 @@ module.exports = {
             data,
         } = req.body
 
+        // A data vem do RangerPicker em um array com duas posições, sendo a primeira a data inicio e a segunda data fim
         const data_inicio = data[0]
         const data_fim = data[1]
 
