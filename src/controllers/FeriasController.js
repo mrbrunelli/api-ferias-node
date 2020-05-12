@@ -45,4 +45,28 @@ module.exports = {
             })
         }
     },
+
+    // Cadastrar Férias
+    async createNew(req, res) {
+        // Pegar conteúdo do body da requisição
+        const {
+            idcolaborador,
+            data_inicio,
+            data_fim
+        } = req.body
+        try {
+            await db.query("INSERT INTO ferias (idcolaborador, data_inicio, data_fim) VALUES ($1, $2, $3)",
+                [idcolaborador, data_inicio, data_fim]
+            )
+            return res.json({
+                error: false,
+                message: 'Férias cadastrada com sucesso!'
+            })
+        } catch (err) {
+            return res.status(400).json({
+                error: true,
+                message: `Erro ao cadastrar férias: ${err}`
+            })
+        }
+    },
 }

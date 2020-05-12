@@ -23,5 +23,6 @@ routes.get('/filial/:id', FilialController.listById)
 // Rota Férias
 routes.get('/ferias', FeriasController.listAll)
 routes.get('/ferias/:id', FeriasController.listById)
+routes.post('/ferias', FeriasController.createNew)
 
 module.exports = routes
