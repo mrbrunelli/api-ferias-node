@@ -6,7 +6,7 @@ services:
     container_name: logistica-psql
     restart: always
     ports:
-      - 5430:5430
+      - 5430:5432
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=logistica
