@@ -1,6 +1,6 @@
 /**
- * Arquivo: ColaboradorController.js
- * Descrição: Responsável por gerenciar os colaboradores (Cadastrar, Listar, Atualizar e Deletar Colaboradores)
+ * Arquivo: FilialController.js
+ * Descrição: Responsável por gerenciar as Filiais
  * Data: 12/05/2020
  * Autor: Matheus Ricardo Brunelli
  */
@@ -8,30 +8,30 @@
 const db = require('../config/database')
 
 module.exports = {
-    // Listar todos os colaboradores
+    // Listar filiais
     async listAll(req, res) {
         try {
-            const response = await db.query("SELECT * FROM colaborador")
+            const response = await db.query("SELECT * FROM filial")
             return res.json(response.rows)
         } catch (err) {
             return res.status(400).json({
                 error: true,
-                message: `Erro ao listar colaboradores: ${err}`
+                message: `Erro ao listar filiais: ${err}`
             })
         }
     },
 
-    // Listar colaborador pelo id
+    // Listar filiais pelo id
     async listById(req, res) {
         try {
-            const response = await db.query(`SELECT * FROM colaborador WHERE idcolaborador = ${req.params.id}`)
+            const response = await db.query(`SELECT * FROM filial WHERE idfilial = ${req.params.id}`)
 
             // Verificar se retornou algum resultado
             if (response.rowCount == 0) {
                 return (
                     res.status(400).json({
                         error: true,
-                        message: 'Colaborador não encontrado!',
+                        message: 'Filial não encontrada!',
                         rows: `Linhas executadas: ${response.rowCount}`
                     })
                 )
@@ -41,7 +41,7 @@ module.exports = {
         } catch (err) {
             return res.status(400).json({
                 error: true,
-                message: `Erro ao listar colaborador: ${err}`
+                message: `Erro ao listar filial: ${err}`
             })
         }
     },
