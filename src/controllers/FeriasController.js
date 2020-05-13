@@ -7,6 +7,7 @@
 
 const db = require('../config/database')
 
+// Formatar data com RegExp
 function formatarData(data) {
     return data.replace(/^(\d{4})[-](\d{2})[-](\d{2}).*/g, '$1-$2-$3')
 }
@@ -28,6 +29,7 @@ module.exports = {
                 LEFT JOIN colaborador c ON c.idcolaborador = f.idcolaborador
             `)
             return res.json(response.rows)
+
         } catch (err) {
             return res.status(400).json({
                 error: true,
@@ -53,6 +55,7 @@ module.exports = {
             }
 
             return res.json(response.rows)
+
         } catch (err) {
             return res.status(400).json({
                 error: true,
@@ -80,10 +83,12 @@ module.exports = {
             await db.query("INSERT INTO ferias (idcolaborador, data_inicio, data_fim) VALUES ($1, $2, $3)",
                 [idcolaborador, data_inicio, data_fim]
             )
+
             return res.json({
                 error: false,
                 message: 'Férias cadastrada com sucesso!'
             })
+
         } catch (err) {
             return res.status(400).json({
                 error: true,
@@ -109,6 +114,7 @@ module.exports = {
                 message: 'Férias deletada com sucesso!',
                 rows: `Linhas executadas: ${response.rowCount}`
             })
+
         } catch (err) {
             return res.status(400).json({
                 error: true,
