@@ -44,15 +44,11 @@ module.exports = {
             const response = await db.query(`SELECT * FROM ferias WHERE idferias = ${req.params.id}`)
 
             // Verificar se retornou algum resultado
-            if (response.rowCount == 0) {
-                return (
-                    res.status(400).json({
-                        error: true,
-                        message: 'Férias não encontrada!',
-                        rows: `Linhas executadas: ${err}`
-                    })
-                )
-            }
+            if (response.rowCount == 0) return res.status(401).json({
+                error: true,
+                message: 'Férias não encontrada!',
+                rows: `Linhas executadas: ${err}`
+            })
 
             return res.json(response.rows)
 
