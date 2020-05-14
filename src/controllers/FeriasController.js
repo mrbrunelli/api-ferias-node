@@ -28,6 +28,7 @@ module.exports = {
                 FROM ferias f
                 LEFT JOIN colaborador c ON c.idcolaborador = f.idcolaborador
             `)
+
             return res.json(response.rows)
 
         } catch (err) {
@@ -41,13 +42,59 @@ module.exports = {
     // Listar Férias pelo id
     async listById(req, res) {
         try {
-            const response = await db.query(`SELECT * FROM ferias WHERE idferias = ${req.params.id}`)
+            const response = await db.query(`
+                SELECT 
+                    f.idferias,
+                    f.data_inclusao,
+                    to_char(f.data_inicio, 'DD/MM/YYYY') data_inicio,
+                    to_char(f.data_fim, 'DD/MM/YYYY') data_fim,
+                    f.idcolaborador,
+                    c.nome,
+                    c.idfilial
+                FROM ferias f
+                LEFT JOIN colaborador c ON c.idcolaborador = f.idcolaborador
+                WHERE f.idferias = ${req.params.id}
+             `)
 
             // Verificar se retornou algum resultado
             if (response.rowCount == 0) return res.status(401).json({
                 error: true,
                 message: 'Férias não encontrada!',
                 rows: `Linhas executadas: ${err}`
+            })
+
+            return res.json(response.rows)
+
+        } catch (err) {
+            return res.status(400).json({
+                error: true,
+                message: `Erro ao listar férias: ${err}`
+            })
+        }
+    },
+
+    // Listar histoórico de férias do colaborador
+    async listAllOfColaborador(req, res) {
+        try {
+            const response = await db.query(`
+                SELECT 
+                    f.idferias,
+                    f.data_inclusao,
+                    to_char(f.data_inicio, 'DD/MM/YYYY') data_inicio,
+                    to_char(f.data_fim, 'DD/MM/YYYY') data_fim,
+                    f.idcolaborador,
+                    c.nome,
+                    c.idfilial
+                FROM ferias f
+                LEFT JOIN colaborador c ON c.idcolaborador = f.idcolaborador
+                WHERE f.idcolaborador = ${req.params.id}
+            `)
+
+            // Verificar se retornou algum resultado
+            if (response.rowCount == 0) return res.status(401).json({
+                error: true,
+                message: 'Férias não encontrada!',
+                rows: `Linhas executadas: ${response.rowCount}`
             })
 
             return res.json(response.rows)

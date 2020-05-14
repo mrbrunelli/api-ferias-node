@@ -26,5 +26,6 @@ routes.get('/ferias', FeriasController.listAll)
 routes.get('/ferias/:id', FeriasController.listById)
 routes.post('/ferias', FeriasController.createNew)
 routes.delete('/ferias/:id', FeriasController.deleteById)
+routes.get('/ferias/colaborador/:id', FeriasController.listAllOfColaborador)
 
 module.exports = routes
